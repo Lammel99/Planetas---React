@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../../components/Header";
-import styled from "styled-components";
 import { MenuItem, TextField, Button } from "@mui/material";
 import { object, string } from "yup";
 import { planets } from "../../data/data";
@@ -13,139 +12,8 @@ import TablePlanets from "./TablePlanets";
 import ModalDelete from "./ModalDelete";
 import { AddCircleOutline } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
+import {ContainerFilter, ContainerPlanets, AddCard, PlanetCard, CardFooter} from './Style'
 
-const ContainerFilter = styled.div`
-  border: solid thin grey;
-  width: 85%;
-  margin: auto;
-  box-sizing: border-box;
-  padding: 20px;
-  border-radius: 5px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  gap: 10px;
-
-  h2 {
-    color: #cdcdcd;
-  }
-  div {
-    width: 280px;
-    color: #cdcdcd;
-    background-color: #2a2a2a;
-    border-radius: 5px;
-  }
-
-  form {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  input {
-    width: 280px;
-    background-color: #2a2a2a;
-    color: #cdcdcd;
-    border: none;
-    border-radius: 5px;
-  }
-  label {
-    color: #cdcdcd;
-  }
-  button {
-    height: 35px;
-    width: 150px;
-  }
-
-  button {
-    background-color: #63bcbc;
-    height: 50px;
-    color: white;
-  }
-`;
-
-const ContainerPlanets = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 50px;
-  gap: 50px;
-  width: 85%;
-  margin: auto;
-`;
-
-const AddCard = styled.div`
-  width: 250px;
-  height: 280px;
-  background-color: #2a2a2a;
-  border-radius: 5px;
-  display: flex;
-  border: solid thin #cdcdcd;
-  justify-content: center;
-  align-items: center;
-  color: #cdcdcd;
-  gap: 7px;
-  font-size: 1.1rem;
-
-  a {
-    cursor: pointer;
-    color: #cdcdcd;
-    text-decoration: none;
-  }
-`;
-
-const PlanetCard = styled.div`
-  width: 250px;
-  height: 280px;
-  background-color: #2a2a2a;
-  border-radius: 5px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  overflow: hidden;
-
-  img {
-    width: 200px;
-    height: 75%;
-  }
-  #Vênus {
-    background-color: #ffa1a1;
-  }
-  #Terra {
-    background-color: #72b7f4;
-  }
-  #Urano {
-    background-color: #32b9d9;
-  }
-  #Marte {
-    background-color: #fe7000;
-  }
-  #Jupiter {
-    background-color: #9d588e;
-  }
-  #Saturno {
-    background-color: #cf6f0b;
-  }
-  #Mercurio {
-    background-color: #6f83eb;
-  }
-`;
-
-const CardFooter = styled.div`
-  background-color: darkgreen;
-  height: 20%;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  padding: 0 20px;
-  div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-`;
 
 const Planets = () => {
   console.log(planets);

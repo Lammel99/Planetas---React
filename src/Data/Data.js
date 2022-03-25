@@ -95,5 +95,14 @@
   ],
 };
 
-
+export const loginData = [{
+  email: 'lammel.mateus@gmail.com',
+  password: '12345678'
+},{
+  email: 'joaofulano@hotmail.com',
+  password: '987654321'
+},{
+  email: 'eosgurine@email.com',
+  password: 'lalalala'
+},]
 export const planets = json.data;

@@ -19,7 +19,7 @@ const MainRoutes = () => {
       <GlobalStyle />
       <MasterPage>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login  />} />
           <Route path="/home" element={<Home />} />
           <Route path='/planetas' element = {<Planets/>}/>
           <Route path='/planetaExplorar' element={<PlanetPage/>}/>

@@ -1,101 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import BgContainer from "../../Assets/Starts.png";
+import ModalSucess from "../../components/ModalSucessFailure";
 
 
-const Modal = styled.div`
-  position: fixed;
+import {ModalContainer, BgStars, Modal} from './Style';
 
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  background-color: rgba(56, 56, 56, 0.1);
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
-const ModalContainer = styled.div`
-  background-color: white;
-  width: 800px;
-  height: 500px;
-  border-radius: 10px;
-  z-index: 2;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 50px;
-  box-sizing: border-box;
-
-  img {
-    display: block;
-
-    margin: auto;
-    box-shadow: 7px 7px 8px 0px rgba(31, 31, 31, 0.35);
-    border-radius: 50%;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-    color: #2a2a2a;
-    margin: 0;
-  }
-  p {
-    width: 90%;
-    text-align: center;
-    font-size: 1.15rem;
-    color: #2a2a2a;
-    margin: 0;
-  }
-
-  div {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 25px;
-  }
-
-  #btnBack {
-    height: 40px;
-    border: none;
-    outline: none;
-    background-color: #6a7eb1;
-    color: white;
-    font-size: 1.1rem;
-    width: 120px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  #btnDelete {
-    height: 40px;
-    border: none;
-    outline: none;
-    background-color: white;
-    color: #6a7eb1;
-    font-size: 1.1rem;
-    border: thin solid #6a7eb1;
-    width: 120px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;
-
-const BgStars = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: 25px;
-  height: 40%;
-  background-color: #121214;
-  border-radius: 10px;
-  background-image: url(${BgContainer});
-  margin-bottom: 60px;
-`;
 
 const ModalDelete = (props) => {
   return (
@@ -125,6 +34,7 @@ const ModalDelete = (props) => {
             </button>
           </div>
         </div>
+       
       </ModalContainer>
     </Modal>
   );
