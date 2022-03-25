@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../Home/Home";
-import Login from "../Login/Login";
+import Home from '../pages/Home/Home'
+import Login from "../pages/Login/Login";
 import GlobalStyle from "./GlobalStyle";
 import MasterPage from "./MasterPage";
 import ContextEmail from './ContextEmail'
-import Planets from '../Planets/Planets'
-import PlanetPage from "../PlanetPage/PlanetPage";
-import AddPlanet from "../AddPlanet/AddPlanet"
+import Planets from '../pages/Planets/Planets'
+import PlanetPage from "../pages/PlanetPage/PlanetPage";
+import AddPlanet from "../pages/AddPlanet/AddPlanet"
 const MainRoutes = () => {
 
 

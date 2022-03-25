@@ -1,4 +1,4 @@
-import React from "react";
+
 
  const json = {
   data: [
@@ -97,8 +97,3 @@ import React from "react";
 
 
 export const planets = json.data;
-
-export const accounts = {
-  email: "lammel.mat@gmail.com",
-  password: "mateuslammel",
-};

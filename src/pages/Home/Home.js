@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import BgLoginAndHome from "../../components/BgLoginAndHome";
 import Header from "../../components/Header";
-import Vector from "../Assets/Vector.svg";
-import Vector2 from "../Assets/Vector-1.svg";
-import Vector3 from "../Assets/Vector-2.svg";
-import Vector4 from "../Assets/Vector-3.svg";
-import {Link} from 'react-router-dom'
+import Vector from "../../Assets/Vector.svg";
+import Vector2 from "../../Assets/Vector-1.svg";
+import Vector3 from "../../Assets/Vector-2.svg";
+import Vector4 from '../../Assets/Vector-3.svg';
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const MainContainer = styled.div`
@@ -57,7 +57,7 @@ const Home = () => {
       width: 30px;
     }
 
-    a{
+    a {
       color: white;
       text-decoration: none;
     }
@@ -69,12 +69,6 @@ const Home = () => {
         <Header />
 
         <MainContainer>
-
-
-
-
-
-
           <h1>Sua jornada para desvendar o espaço começa aqui!</h1>
 
           <p>Planetas e galáxias inteiras aguardam para serem exploradas.</p>
@@ -100,8 +94,6 @@ const Home = () => {
               <img src={Vector4} />
               Galáxias
             </div>
-
-            
           </ContainerIcons>
         </MainContainer>
       </BgLoginAndHome>

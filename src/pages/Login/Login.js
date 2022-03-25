@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import BgLoginAndHome from "../Components/BgLoginAndHome";
-import LogoLogin from "../Assets/LogoLogin.svg";
-import Email from "../Assets/Email.svg";
-import Password from "../Assets/Password.svg";
+import BgLoginAndHome from "../../components/BgLoginAndHome";
+import LogoLogin from "../../Assets/LogoLogin.svg";
+import Email from "../../Assets/Email.svg";
+import Password from "../../Assets/Password.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate, NavLink } from "react-router-dom";

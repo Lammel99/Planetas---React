@@ -5,7 +5,7 @@ import bg from '../Assets/BgLoginHome.png'
 const BackGroundImg = styled.div`
 background-image: url(${bg});
 width: 100%;
-height: 100%;
+height: 100vh;
 background-repeat: no-repeat;
 background-size: cover;
 `

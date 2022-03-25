@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import Header from "../../components/Header";
-import Backhome from "../../components/Backhome";
 import {
+  AddAPhoto,
   ArrowBackIosNew,
   ArrowForwardIos,
   Minimize,
+  Remove,
 } from "@mui/icons-material";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import Backhome from "../../components/Backhome";
 import Bg from "../../components/Bg";
-import { planets } from "../../Data/Data";
+import Header from "../../components/Header";
 import { useFormik, Formik } from "formik";
 import * as Yup from "yup";
 import { Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { planets } from "../../data/data";
 
-const SectionPlanet = styled.section`
+const SectionAddPlanet = styled.section`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -25,17 +26,22 @@ const PhotoAndDescription = styled.div`
   width: 95%;
   display: flex;
   flex-flow: row wrap;
-  gap: 100px;
+  gap: 320px;
 `;
 
-const PhotoDiv = styled.div`
+const AddPhotoDiv = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   gap: 35px;
-  width: 40%;
 
   div {
+    width: 450px;
+    height: 450px;
+    background-color: #2a2a2a4d;
+
+    border: solid medium #cdcdcd;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,50 +50,37 @@ const PhotoDiv = styled.div`
     gap: 15px;
   }
 
-  img {
-    width: 420px;
-    height: 420px;
-  }
   svg {
-    font-size: 3rem;
-    color: white;
+    font-size: 2.5rem;
+    color: #cdcdcd;
+    opacity: 0.7;
     cursor: pointer;
   }
 
   #Arrow {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 `;
 
 const InformationsDiv = styled.div`
   color: #cdcdcd;
-  justify-content: center;
+
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  width: 50%;
+  font-size: 1.5rem;
 
   svg {
     color: #ffffff;
     font-size: 2rem;
     padding-bottom: 0%.8;
-
+    border-bottom: medium solid white;
     opacity: 1;
   }
 
   #descrip {
-    margin: 0;
     opacity: 0.7;
   }
-
-  p {
-    margin: 0;
-    font-size: 1.2rem;
-  }
-`;
-
-const Name = styled.h3`
-  font-size: 3.2rem;
 `;
 
 const PlanetDataCards = styled.div`
@@ -102,7 +95,7 @@ const PlanetDataCards = styled.div`
     height: 150px;
     border: solid thin #cdcdcd;
     box-sizing: border-box;
-    padding: 20px 30px;
+    padding: 10px 20px;
     color: #cdcdcd;
     border-radius: 5px;
     background-color: #2a2a2a4d;
@@ -111,11 +104,6 @@ const PlanetDataCards = styled.div`
   h2 {
     opacity: 0.8;
     font-size: 1.2rem;
-  }
-
-  p {
-    opacity: 0.8;
-    font-size: 1.6rem;
   }
 `;
 
@@ -154,7 +142,6 @@ const FormAddPlanet = styled.div`
     font-weight: bold;
   }
 `;
-
 const Form = styled.form`
   display: grid;
   grid-template:
@@ -166,95 +153,110 @@ const Form = styled.form`
   gap: 30px;
 `;
 
-const PlanetPage = () => {
-  const navigate = useNavigate();
-  const index = localStorage.getItem("planet");
-  const [indexPlanet, setIndexPlanet] = React.useState(index);
-
-  const [editedPlanet, setEditedPlanet] = React.useState({
-    name: planets[indexPlanet].name,
-    image: "Marte.png",
-    area: planets[indexPlanet].area,
-    sunDistance: planets[indexPlanet].sunDistance,
-    durationDay: planets[indexPlanet].durationDay,
-    gravity: "",
-    description: "",
+const AddPlanet = () => {
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Obrigatório"),
+    area: Yup.string("Insira a área de superfície do planeta").required(
+      "Obrigatório"
+    ),
+    distance: Yup.string("Insira a distância do Sol do planeta").required(
+      "Obrigatório"
+    ),
+    duration: Yup.string("Insira a duração do dia do planeta").required(
+      "Obrigatório"
+    ),
+    gravity: Yup.string("Insira a gravidade").required("Obrigatório"),
+    description: Yup.string("Insira a descrição do planeta").required(
+      "Obrigatório"
+    ),
   });
 
-  console.log(planets);
+  
+
+
 
   const formik = useFormik({
-    enableReinitialize: true,
     initialValues: {
-      name: planets[indexPlanet].name,
-      area: planets[indexPlanet].area,
-      sunDistance: planets[indexPlanet].sunDistance,
-      durationDay: planets[indexPlanet].durationDay,
-      gravity: planets[indexPlanet].gravity,
-      description: planets[indexPlanet].description,
-      
+      name: "",
+      area: "",
+      distance: "",
+      duration: "",
+      gravity: "",
+      description: "",
+      validationSchema: validationSchema,
     },
     onSubmit: (values) => {
-      console.log("fui chamado");
-
-      planets[indexPlanet] = {
+    
+    const newPlanet = {
         name: values.name,
-        image: planets[indexPlanet].image,
-        area: values.area,
-        durationDay: values.durationDay,
-        sunDistance: values.sunDistance,
-        gravity: values.gravity,
+        image: "Marte.png",
         description: values.description,
+        area: values.area,
+        durationDay: values.duration,
+        sunDistance: values.distance,
+        gravity: values.gravity,
       };
 
-      navigate("/planetas");
+      planets.push(newPlanet) ;     
+
     },
   });
 
   return (
     <Bg>
       <Header />
-      <Backhome where="Explorar Planeta" />
-      <SectionPlanet>
+      <Backhome where="Adicionar Planeta" />
+
+      <SectionAddPlanet>
         <PhotoAndDescription>
-          <PhotoDiv>
+          <AddPhotoDiv>
             <ArrowBackIosNew id="Arrow" />
+            <div>
+              <AddAPhoto />
+              Adicionar foto
+            </div>
 
-            <img src={require(`../Assets/${planets[indexPlanet].image}`)} />
-
-            <ArrowForwardIos
-              id="Arrow"
-              onClick={(event) => {
-                indexPlanet < planets.length - 1
-                  ? setIndexPlanet(Number(indexPlanet) + 1)
-                  : setIndexPlanet(0);
-              }}
-            />
-          </PhotoDiv>
+            <ArrowForwardIos id="Arrow" />
+          </AddPhotoDiv>
           <InformationsDiv>
             <p>PLANETA</p>
-            <Name>{planets[indexPlanet].name}</Name>
-            <Minimize />
-            <p>{planets[indexPlanet].description}</p>
+            {formik.values.name ? <p>{formik.values.name}</p> : <Minimize />}
+            {formik.values.description ? (
+              <p>{formik.values.description}</p>
+            ) : (
+              <p id="descrip">Informe uma descrição...</p>
+            )}
           </InformationsDiv>
         </PhotoAndDescription>
 
         <PlanetDataCards>
           <div>
             <h2>Área de superfície</h2>
-            <p>{planets[indexPlanet].area} km</p>
+            {formik.values.area ? <p>{formik.values.area}</p> : <Minimize />}
           </div>
           <div>
             <h2>Distância do sol</h2>
-            <p>{planets[indexPlanet].sunDistance} km</p>
+            {formik.values.distance ? (
+              <p>{formik.values.distance}</p>
+            ) : (
+              <Minimize />
+            )}
           </div>
           <div>
             <h2>Duração do dia</h2>
-            <p>{planets[indexPlanet].durationDay} </p>
+            {formik.values.duration ? (
+              <p>{formik.values.duration}</p>
+            ) : (
+              <Minimize />
+            )}
           </div>
           <div>
             <h2>Gravidade</h2>
-            <p>{planets[indexPlanet].gravity}</p>
+            {formik.values.gravity ? (
+              <p>{formik.values.gravity}</p>
+            ) : (
+              <Minimize />
+            )}
           </div>
         </PlanetDataCards>
         <FormAddPlanet>
@@ -300,10 +302,10 @@ const PlanetPage = () => {
               type="number"
               style={{ gridArea: "distance" }}
               InputLabelProps={{ style: { color: "#CDCDCD" } }}
-              name="sunDistance"
+              name="distance"
               label="Distância do sol"
               variant="outlined"
-              value={formik.values.sunDistance}
+              value={formik.values.distance}
               onChange={formik.handleChange}
             />
             <TextField
@@ -322,10 +324,10 @@ const PlanetPage = () => {
               type="number"
               style={{ gridArea: "duration" }}
               InputLabelProps={{ style: { color: "#CDCDCD" } }}
-              name="durationDay"
+              name="duration"
               label="Duração do dia"
               variant="outlined"
-              value={formik.values.durationDay}
+              value={formik.values.duration}
               onChange={formik.handleChange}
             />
             <Button
@@ -333,7 +335,7 @@ const PlanetPage = () => {
               id="BtnBack"
               value="CANCELAR"
               type="reset"
-              onClick={(e) => navigate('/planetas')}
+              onlick={(e) => formik.resetForm()}
             >
               CANCELAR
             </Button>
@@ -347,9 +349,9 @@ const PlanetPage = () => {
             </Button>
           </Form>
         </FormAddPlanet>
-      </SectionPlanet>
+      </SectionAddPlanet>
     </Bg>
   );
 };
 
-export default PlanetPage;
+export default AddPlanet;

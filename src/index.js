@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MainRoutes from './Components/MainRoutes';
+import MainRoutes from './components/MainRoutes';
 
 
 

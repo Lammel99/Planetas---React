@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import logo from "../assets/LogoLogin.svg";
-import arrow from "../assets/Arrow.svg";
-import person from "../assets/person.svg";
+import logo from "../Assets/LogoLogin.svg";
+import arrow from "../Assets/Arrow.svg";
+import person from "../Assets/person.svg";
 import { EmailUser } from "./ContextEmail";
 
 const HeaderContainer = styled.div`

@@ -1,15 +1,11 @@
 import React from "react";
 import Header from "../../components/Header";
-import BgLoginAndHome from "../../components/BgLoginAndHome";
-import BackArrow from "../Assets/BackArrow.svg";
 import styled from "styled-components";
 import { MenuItem, TextField, Button } from "@mui/material";
-import { object, string, ref } from "yup";
-
-import { planets } from "../../Data/Data";
+import { object, string } from "yup";
+import { planets } from "../../data/data";
 import { useFormik } from "formik";
 import Backhome from "../../components/Backhome";
-import ForwardArrow from "../Assets/ForwardArrow.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Bg from "../../components/Bg";
@@ -283,7 +279,7 @@ const Planets = () => {
           {filteredPlanets.map((planet, i) => {
             return (
               <PlanetCard key={planet.name} id={planet.name}>
-                <img src={require(`../Assets/${planet.image}`)} />
+                <img src={require(`../../Assets/${planet.image}`)} />
                 <CardFooter id={planet.name}>
                   <h3>{planet.name}</h3>
                   <div>

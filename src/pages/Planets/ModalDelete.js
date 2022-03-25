@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import BgContainer from "../Assets/Starts.png";
-import { planets } from "../../Data/Data";
+import BgContainer from "../../Assets/Starts.png";
+
 
 const Modal = styled.div`
   position: fixed;
@@ -104,7 +104,7 @@ const ModalDelete = (props) => {
         <BgStars>
           <img
             style={{ width: "200px", height: "200px" }}
-            src={require(`../Assets/PlanetsFull/${props.img}`)}
+            src={require(`../../Assets/PlanetsFull/${props.img}`)}
           ></img>
         </BgStars>
 
