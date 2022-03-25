@@ -3,8 +3,8 @@ import BgLoginAndHome from "../../components/BgLoginAndHome";
 import LogoLogin from "../../Assets/LogoLogin.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate} from "react-router-dom";
-import { ContainerLogin, LoginCenterContainer, LoginBanner} from './Style'
+import { Link, useNavigate} from "react-router-dom";
+import { ContainerLogin, LoginCenterContainer, LoginBanner, HamburguerMenu} from './Style'
 import {loginData} from '../../data/data'
 import ModalSucess from "../../components/ModalSucessFailure";
 
@@ -24,6 +24,8 @@ const Login = (props) => {
   const [modalDisplay, setModalDisplay] = React.useState(false);
   const [sucess, setSucess] = React.useState(false)
 
+
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -37,7 +39,7 @@ const Login = (props) => {
       if(loginData.some(log => log.email == values.email && log.password == values.password)){
         setSucess(true);
         setModalDisplay(true);     
-      
+        props.sendData(values.email)
         setTimeout(() => {
           navigate('/planetas');}, 1500);
 
@@ -84,8 +86,10 @@ const Login = (props) => {
           <img src={LogoLogin} />
           <h1>Faça seu Login na plataforma</h1>
         </LoginBanner>
+
       </ContainerLogin>
       <ModalSucess display={modalDisplay} Sucess={sucess} messageError={'Dados de login incorretos'} messageSucess={'Login efetuado com sucesso!'}/>
+     
     </BgLoginAndHome>
   );
 };

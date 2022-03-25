@@ -57,14 +57,14 @@ export const ContainerPlanets = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 50px;
-  gap: 50px;
+  gap: 100px;
   width: 85%;
   margin: auto;
 `;
 
 export const AddCard = styled.div`
-  width: 250px;
-  height: 280px;
+   width: 100%;
+  height: 300px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;
@@ -83,8 +83,8 @@ export const AddCard = styled.div`
 `;
 
 export const PlanetCard = styled.div`
-  width: 250px;
-  height: 280px;
+  width: 100%;
+  height: 300px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;

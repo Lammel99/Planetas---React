@@ -11,7 +11,8 @@ import AddPlanet from "../pages/AddPlanet/AddPlanet"
 const MainRoutes = () => {
 
 
-  const [userEmail, setEmail] = React.useState('eqwe');
+  const [userEmail, setEmail] = React.useState('Usuário');
+  const [userLogin, setUserLogin] = React.useState(false)
 
   return (
     <BrowserRouter>
@@ -19,7 +20,7 @@ const MainRoutes = () => {
       <GlobalStyle />
       <MasterPage>
         <Routes>
-          <Route path="/" element={<Login  />} />
+          <Route path="/" element={<Login sendData={setEmail} />} />
           <Route path="/home" element={<Home />} />
           <Route path='/planetas' element = {<Planets/>}/>
           <Route path='/planetaExplorar' element={<PlanetPage/>}/>
