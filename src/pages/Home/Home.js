@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import BgLoginAndHome from "../../components/BgLoginAndHome";
-import Header from "../../components/Header";
+import BgLoginAndHome from "../../components/Bgs/BgLoginAndHome";
+import Header from "../../components/Header/Header";
 import Vector from "../../Assets/Vector.svg";
 import Vector2 from "../../Assets/Vector-1.svg";
 import Vector3 from "../../Assets/Vector-2.svg";

@@ -1,5 +1,5 @@
 import React from "react";
-import ModalSucess from "../../components/ModalSucessFailure";
+import ModalSucess from "../../helpers/ModalSucessFailure";
 
 
 import {ModalContainer, BgStars, Modal} from './Style';

@@ -139,3 +139,31 @@ grid-template:
   / 1fr 1fr 1fr 1fr 1fr 1fr;
 gap: 30px;
 `;
+
+export const ModalChoosePhoto = styled.div`
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(56, 56, 56, 0.1);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+div{
+  background-color: white;
+position: fixed;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 25px;
+padding: 50px;
+border-radius: 5px;
+
+}
+img{
+  width: 200px;
+  height: 180px;
+}`

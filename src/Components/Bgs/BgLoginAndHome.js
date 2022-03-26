@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import bg from '../Assets/BgLoginHome.png'
+import bg from '../../Assets/BgLoginHome.png'
 
 const BackGroundImg = styled.div`
 background-image: url(${bg});

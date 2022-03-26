@@ -1,5 +1,5 @@
 import React from 'react'
-import BackArrow from '../Assets/BackArrow.svg'
+import BackArrow from '../../Assets/BackArrow.svg'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 

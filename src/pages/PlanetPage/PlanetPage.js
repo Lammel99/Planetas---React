@@ -1,16 +1,15 @@
 import React from "react";
-import styled from "styled-components";
-import Header from "../../components/Header";
-import Backhome from "../../components/Backhome";
+import Header from "../../components/Header/Header";
+import Backhome from "../../components/Backhome/Backhome";
 import {
   ArrowBackIosNew,
   ArrowForwardIos,
   Minimize,
 } from "@mui/icons-material";
-import Bg from "../../components/Bg";
+import Bg from "../../components/Bgs/Bg";
 import { planets } from "../../data/data";
-import { useFormik, Formik } from "formik";
-import * as Yup from "yup";
+import { useFormik} from "formik";
+
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -23,7 +22,7 @@ import {
   PlanetDataCards,
   Form,
 } from "./Styles";
-import ModalSucess from "../../components/ModalSucessFailure";
+import ModalSucess from "../../helpers/ModalSucessFailure";
 
 const PlanetPage = () => {
 

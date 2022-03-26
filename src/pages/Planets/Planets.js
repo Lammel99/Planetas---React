@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import { MenuItem, TextField, Button } from "@mui/material";
 import { object, string } from "yup";
 import { planets } from "../../data/data";
 import { useFormik } from "formik";
-import Backhome from "../../components/Backhome";
+import Backhome from "../../components/Backhome/Backhome";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Bg from "../../components/Bg";
+import Bg from "../../components/Bgs/Bg";
 import TablePlanets from "./TablePlanets";
 import ModalDelete from "./ModalDelete";
 import { AddCircleOutline } from "@mui/icons-material";

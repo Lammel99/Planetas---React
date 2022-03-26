@@ -1,8 +1,7 @@
-
-import styled from 'styled-components';
+import styled from "styled-components";
 import BgContainer from "../../Assets/Starts.png";
 
-export  const ContainerFilter = styled.div`
+export const ContainerFilter = styled.div`
   border: solid thin grey;
   width: 85%;
   margin: auto;
@@ -63,7 +62,7 @@ export const ContainerPlanets = styled.div`
 `;
 
 export const AddCard = styled.div`
-   width: 100%;
+  width: 100%;
   height: 300px;
   background-color: #2a2a2a;
   border-radius: 5px;
@@ -229,10 +228,10 @@ export const BgStars = styled.div`
   margin-bottom: 60px;
 `;
 export const TableSec = styled.section`
- box-sizing: border-box;
+  box-sizing: border-box;
   padding: 25px 100px;
-  border: solid thin #CDCDCD;
-  color: #CDCDCD;
+  border: solid thin #cdcdcd;
+  color: #cdcdcd;
   width: 85%;
   margin: auto;
   border-radius: 5px;
@@ -241,22 +240,23 @@ export const TableSec = styled.section`
   display: flex;
   flex-flow: column nowrap;
   gap: 25px;
-  
-  table, th{
-    color: #CDCDCD;
+
+  table,
+  th {
+    color: #cdcdcd;
     font-size: 1.2rem;
   }
 
-  th{
+  th {
     height: 40px;
   }
 
-  #tablehead{
-    background: #CDCDCD;
+  #tablehead {
+    background: #cdcdcd;
   }
 
-  #tablehead th{
-    color: #334B48;
+  #tablehead th {
+    color: #334b48;
     font-weight: bold;
   }
-`
+`;

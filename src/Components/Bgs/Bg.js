@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import bg from "../Assets/BGplanets.png";
+import bg from "../../Assets/BGplanets.png";
 
 
 const Bgzada = styled.div`

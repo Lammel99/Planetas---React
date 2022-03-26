@@ -1,12 +1,12 @@
 import React from "react";
-import BgLoginAndHome from "../../components/BgLoginAndHome";
+import BgLoginAndHome from "../../components/Bgs/BgLoginAndHome";
 import LogoLogin from "../../Assets/LogoLogin.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate} from "react-router-dom";
 import { ContainerLogin, LoginCenterContainer, LoginBanner, HamburguerMenu} from './Style'
 import {loginData} from '../../data/data'
-import ModalSucess from "../../components/ModalSucessFailure";
+import ModalSucess from "../../helpers/ModalSucessFailure";
 
 
 const Login = (props) => {

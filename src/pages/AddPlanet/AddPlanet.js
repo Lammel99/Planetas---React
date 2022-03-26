@@ -5,9 +5,9 @@ import {
   Minimize,
 } from "@mui/icons-material";
 import React from "react";
-import Backhome from "../../components/Backhome";
-import Bg from "../../components/Bg";
-import Header from "../../components/Header";
+import Backhome from "../../components/Backhome/Backhome";
+import Bg from "../../components/Bgs/Bg";
+import Header from "../../components/Header/Header";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, TextField } from "@mui/material";
@@ -20,14 +20,14 @@ import {
   PlanetDataCards,
   FormAddPlanet,
   Form,
+  ModalChoosePhoto,
 } from "./Style";
-import ModalSucess from "../../components/ModalSucessFailure";
+import ModalSucess from "../../helpers/ModalSucessFailure";
 import { useNavigate } from "react-router-dom";
 
 const AddPlanet = () => {
-
   const [sucess, setSucess] = React.useState(false);
-  const [display, setDisplay] = React.useState(false)
+  const [display, setDisplay] = React.useState(false);
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
@@ -60,20 +60,20 @@ const AddPlanet = () => {
     onSubmit: (values) => {
       const newPlanet = {
         name: values.name,
-        image: "Marte.png",
+        image: values.image,
         description: values.description,
         area: values.area,
         durationDay: values.duration,
         sunDistance: values.distance,
         gravity: values.gravity,
       };
-
+      
       setDisplay(true);
-      setSucess(true)
+      setSucess(true);
       planets.push(newPlanet);
       setTimeout(() => {
-        navigate('/planetas');}, 1500);
-    
+        navigate("/planetas");
+      }, 1500);
     },
   });
 
@@ -90,6 +90,7 @@ const AddPlanet = () => {
               <AddAPhoto />
               Adicionar foto
             </div>
+
             <ArrowForwardIos id="Arrow" />
           </AddPhotoDiv>
           <InformationsDiv>
@@ -217,14 +218,18 @@ const AddPlanet = () => {
               id="BtnSend"
               type="submit"
               value="ENVIAR"
-              
             >
               ENVIAR
             </Button>
           </Form>
         </FormAddPlanet>
+       
       </SectionAddPlanet>
-      <ModalSucess display={display} messageSucess={'Planeta adicionado com sucesso'} Sucess={sucess}/>
+      <ModalSucess
+        display={display}
+        messageSucess={"Planeta adicionado com sucesso"}
+        Sucess={sucess}
+      />
     </Bg>
   );
 };
