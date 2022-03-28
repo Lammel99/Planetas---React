@@ -1,10 +1,6 @@
 import React from "react";
-import ModalSucess from "../../helpers/ModalSucessFailure";
 
-
-import {ModalContainer, BgStars, Modal} from './Style';
-
-
+import { ModalContainer, BgStars, Modal } from "./Style";
 
 const ModalDelete = (props) => {
   return (
@@ -34,7 +30,6 @@ const ModalDelete = (props) => {
             </button>
           </div>
         </div>
-       
       </ModalContainer>
     </Modal>
   );

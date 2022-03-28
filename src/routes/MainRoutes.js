@@ -16,10 +16,9 @@ import PlanetPage from "../pages/PlanetPage/PlanetPage";
 import AddPlanet from "../pages/AddPlanet/AddPlanet";
 const MainRoutes = () => {
   const [userEmail, setEmail] = React.useState();
-  const [userLogin, setUserLogin] = React.useState(false);
 
-  const PrivateRoute = (userLogin, children) => {
-    return userLogin ? children : <Navigate to="/login" />;
+  const PrivateRoute = ({children}) => {
+    return userEmail ? children : <Navigate to="/" />;
   };
 
   return (
@@ -29,10 +28,38 @@ const MainRoutes = () => {
         <MasterPage>
           <Routes>
             <Route path="/" element={<Login sendData={setEmail} />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/planetas" element={<Planets />} />
-            <Route path="/planetaExplorar" element={<PlanetPage />} />
-            <Route path="/addPlaneta" element={<AddPlanet />} />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/planetas"
+              element={
+                <PrivateRoute>
+                  <Planets />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/planetaExplorar"
+              element={
+                <PrivateRoute>
+                  <PlanetPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/addPlaneta"
+              element={
+                <PrivateRoute>
+                  <AddPlanet />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </MasterPage>
       </ContextEmail>

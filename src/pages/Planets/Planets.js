@@ -12,8 +12,13 @@ import TablePlanets from "./TablePlanets";
 import ModalDelete from "./ModalDelete";
 import { AddCircleOutline } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import {ContainerFilter, ContainerPlanets, AddCard, PlanetCard, CardFooter} from './Style'
-
+import {
+  ContainerFilter,
+  ContainerPlanets,
+  AddCard,
+  PlanetCard,
+  CardFooter,
+} from "./Style";
 
 const Planets = () => {
   console.log(planets);
@@ -60,7 +65,7 @@ const Planets = () => {
 
   function SortPlanets(values) {
     const NameFilteredPlanets = planets.filter((planet) =>
-      planet.name.includes(values.name)
+      planet.name.toUpperCase().includes(values.name.toUpperCase())
     );
 
     console.log(NameFilteredPlanets.length);

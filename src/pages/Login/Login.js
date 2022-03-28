@@ -41,7 +41,7 @@ const Login = (props) => {
         setModalDisplay(true);     
         props.sendData(values.email)
         setTimeout(() => {
-          navigate('/planetas');}, 1500);
+          navigate('/home');}, 1500);
 
       } else {
        
