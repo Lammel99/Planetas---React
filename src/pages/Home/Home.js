@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import BgLoginAndHome from "../../components/Bgs/BgLoginAndHome";
 import Header from "../../components/Header/Header";
 import Vector from "../../Assets/Vector.svg";
 import Vector2 from "../../Assets/Vector-1.svg";
 import Vector3 from "../../Assets/Vector-2.svg";
-import Vector4 from '../../Assets/Vector-3.svg';
+import Vector4 from "../../Assets/Vector-3.svg";
 import { Link } from "react-router-dom";
-import {MainContainer, ContainerIcons} from './Style'
+import { MainContainer, ContainerIcons } from "./Style";
+import { postPlanet } from "../../services/post";
+import { deletePlanet } from "../../services/delete";
 
 const Home = () => {
   return (
@@ -39,6 +41,7 @@ const Home = () => {
           </ContainerIcons>
         </MainContainer>
       </BgLoginAndHome>
+    
     </section>
   );
 };

@@ -15,11 +15,14 @@ import Planets from "../pages/Planets/Planets";
 import PlanetPage from "../pages/PlanetPage/PlanetPage";
 import AddPlanet from "../pages/AddPlanet/AddPlanet";
 const MainRoutes = () => {
+ 
   const [userEmail, setEmail] = React.useState();
 
-  const PrivateRoute = ({children}) => {
+  const PrivateRoute = ({ children }) => {
     return userEmail ? children : <Navigate to="/" />;
   };
+
+
 
   return (
     <BrowserRouter>

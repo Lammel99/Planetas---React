@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header/Header";
 import { MenuItem, TextField, Button } from "@mui/material";
 import { object, string } from "yup";
-import { planets } from "../../data/data";
 import { useFormik } from "formik";
 import Backhome from "../../components/Backhome/Backhome";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,10 +18,21 @@ import {
   PlanetCard,
   CardFooter,
 } from "./Style";
+import { getPlanets } from "../../services/get";
+import { deletePlanet } from "../../services/delete";
 
 const Planets = () => {
-  console.log(planets);
+  const [planets, setPlanets] = React.useState("");
+  const [display, setDisplay] = React.useState(false);
 
+  useEffect(() => {
+    getPlanets().then((response) => setPlanets(response.data));
+  }, [display]);
+
+  const [modalImg, setModalImg] = React.useState();
+  const [indexDelete, setIndexDelete] = React.useState();
+  const navigate = useNavigate();
+  
   const validationSchema = object({
     name: string(),
     filterParameter: string(),
@@ -41,7 +51,6 @@ const Planets = () => {
       SortPlanets(values);
     },
   });
-
   const filterParameters = [
     {
       value: "area",
@@ -60,9 +69,6 @@ const Planets = () => {
       label: "Gravidade",
     },
   ];
-
-  const [filteredPlanets, setFilteredPlanets] = React.useState(planets);
-
   function SortPlanets(values) {
     const NameFilteredPlanets = planets.filter((planet) =>
       planet.name.toUpperCase().includes(values.name.toUpperCase())
@@ -71,7 +77,7 @@ const Planets = () => {
     console.log(NameFilteredPlanets.length);
 
     if (NameFilteredPlanets.length > 0 && values.filterParameter) {
-      setFilteredPlanets(
+      setPlanets(
         NameFilteredPlanets.sort((a, b) => {
           return values.filterHigherLower == "maior"
             ? a[values.filterParameter] - b[values.filterParameter]
@@ -81,14 +87,10 @@ const Planets = () => {
     }
   }
 
-  const [display, setDisplay] = React.useState(false);
-  const [modalImg, setModalImg] = React.useState();
-  const [indexDelete, setIndexDelete] = React.useState();
-  const navigate = useNavigate();
-
   return (
     <Bg>
       <Header />
+
       <section>
         <Backhome where="Planetas" />
 
@@ -149,46 +151,49 @@ const Planets = () => {
             </Link>
           </AddCard>
 
-          {filteredPlanets.map((planet, i) => {
-            return (
-              <PlanetCard key={planet.name} id={planet.name}>
-                <img src={require(`../../Assets/${planet.image}`)} />
-                <CardFooter id={planet.name}>
-                  <h3>{planet.name}</h3>
-                  <div>
-                    <DeleteIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={(event) => {
-                        setModalImg(planet.image);
-                        setDisplay(!display);
-                        setIndexDelete(i);
-                      }}
+          {planets.length > 0 ? (
+            planets.map((planet, i) => {
+              return (
+                <PlanetCard key={planet.name} id={planet.name}>
+                  <img src={require(`../../Assets/${planet.image}`)} />
+                  <CardFooter id={planet.name}>
+                    <h3>{planet.name}</h3>
+                    <div>
+                      <DeleteIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={(event) => {
+                          setModalImg(planet.image);
+                          setDisplay(!display);
+                          setIndexDelete(i);
+                        }}
+                      />
+                      <ArrowForwardIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={(event) => {
+                          localStorage.setItem("planet", i);
+                          navigate("/planetaExplorar");
+                        }}
+                      />
+                    </div>
+                  </CardFooter>
+                  {display && (
+                    <ModalDelete
+                      display={display}
+                      setarDisplay={(event) => setDisplay(!display)}
+                      img={modalImg}
+                      deletePlanet={(event) => deletePlanet(planet.id)}
                     />
-                    <ArrowForwardIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={(event) => {
-                        localStorage.setItem("planet", i);
-                        navigate("/planetaExplorar");
-                      }}
-                    />
-                  </div>
-                </CardFooter>
-                {display && (
-                  <ModalDelete
-                    display={display}
-                    setarDisplay={(event) => setDisplay(!display)}
-                    img={modalImg}
-                    deletePlanet={(event) =>
-                      filteredPlanets.splice(indexDelete, 1)
-                    }
-                  />
-                )}
-              </PlanetCard>
-            );
-          })}
+                  )}
+                </PlanetCard>
+              );
+            })
+          ) : (
+            <p>Loading</p>
+          )}
         </ContainerPlanets>
       </section>
-      <TablePlanets planets={filteredPlanets} />
+
+      {/* <TablePlanets planets={filteredPlanets} /> */}
     </Bg>
   );
 };

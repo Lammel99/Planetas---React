@@ -24,6 +24,7 @@ import {
 } from "./Style";
 import ModalSucess from "../../helpers/ModalSucessFailure";
 import { useNavigate } from "react-router-dom";
+import { postPlanet } from "../../services/post";
 
 const AddPlanet = () => {
   const [sucess, setSucess] = React.useState(false);
@@ -58,19 +59,18 @@ const AddPlanet = () => {
       validationSchema: validationSchema,
     },
     onSubmit: (values) => {
-      const newPlanet = {
-        name: values.name,
-        image: values.image,
-        description: values.description,
-        area: values.area,
-        durationDay: values.duration,
-        sunDistance: values.distance,
-        gravity: values.gravity,
-      };
-      
+      postPlanet(
+        values.name,
+        'Netuno.png',
+        values.description,
+        values.area,
+        values.duration,
+        values.distance,
+        values.gravity
+      );
+
       setDisplay(true);
       setSucess(true);
-      planets.push(newPlanet);
       setTimeout(() => {
         navigate("/planetas");
       }, 1500);
@@ -223,7 +223,6 @@ const AddPlanet = () => {
             </Button>
           </Form>
         </FormAddPlanet>
-       
       </SectionAddPlanet>
       <ModalSucess
         display={display}

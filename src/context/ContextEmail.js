@@ -1,12 +1,5 @@
 import React from 'react'
 
-
-
-
-
-
-
-
 export const EmailUser = React.createContext(); 
 
 const ContextEmail = (props) => {

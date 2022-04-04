@@ -6,52 +6,53 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React from "react";
 
-import {TableSec} from './Style'
-
-
-
+import { TableSec } from "./Style";
 
 const TablePlanets = (props) => {
-
- 
   return (
     <TableSec>
-
       <h2>Tabela comparativa</h2>
-    <TableContainer >
-      <Table >
-        <TableHead id='tablehead'>
-          <TableRow>
-            <TableCell>Planeta</TableCell>
-            <TableCell align="center">Área de Superfície</TableCell>
-            <TableCell align="center">Distância do Sol</TableCell>
-            <TableCell align="center">Duração do dia</TableCell>
-            <TableCell align="center">Gravidade</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.planets.map((planet) => {
-         return (
-          <TableRow
-            key={planet.name}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {planet.name}
-            </TableCell>
-            <TableCell component="th" align="center">{planet.area} km²</TableCell>
-            <TableCell component="th" align="center">{planet.sunDistance} km</TableCell>
-            <TableCell component="th" align="center">{planet.durationDay}</TableCell>
-            <TableCell component="th" align="center">{planet.gravity}</TableCell>
-          </TableRow>
-          )})}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <TableContainer>
+        <Table>
+          <TableHead id="tablehead">
+            <TableRow>
+              <TableCell>Planeta</TableCell>
+              <TableCell align="center">Área de Superfície</TableCell>
+              <TableCell align="center">Distância do Sol</TableCell>
+              <TableCell align="center">Duração do dia</TableCell>
+              <TableCell align="center">Gravidade</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.planets.map((planet) => {
+              return (
+                <TableRow
+                  key={planet.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {planet.name}
+                  </TableCell>
+                  <TableCell component="th" align="center">
+                    {planet.area} km²
+                  </TableCell>
+                  <TableCell component="th" align="center">
+                    {planet.sunDistance} km
+                  </TableCell>
+                  <TableCell component="th" align="center">
+                    {planet.durationDay}
+                  </TableCell>
+                  <TableCell component="th" align="center">
+                    {planet.gravity}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </TableSec>
-
   );
-
 };
 
 export default TablePlanets;
