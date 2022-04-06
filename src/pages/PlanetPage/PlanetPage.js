@@ -42,15 +42,13 @@ const PlanetPage = () => {
       setEditedPlanet({
         name: planets[indexPlanet].name,
         image: "Marte.png",
-        area: planets[indexPlanet].area,
+        area: planets[indexPlanet].surfaceaArea,
         sunDistance: planets[indexPlanet].sunDistance,
-        durationDay: planets[indexPlanet].durationDay,
+        durationDay: planets[indexPlanet].day,
         gravity: planets[indexPlanet].gravity,
         description: planets[indexPlanet].description,
       });
   }, [index]);
-
-  console.log(planets);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -66,9 +64,9 @@ const PlanetPage = () => {
           }
         : {
             name: planets[indexPlanet].name,
-            area: planets[indexPlanet].area,
+            area: planets[indexPlanet].surfaceArea,
             sunDistance: planets[indexPlanet].sunDistance,
-            durationDay: planets[indexPlanet].durationDay,
+            durationDay: planets[indexPlanet].day,
             gravity: planets[indexPlanet].gravity,
             description: planets[indexPlanet].description,
           },
@@ -125,7 +123,7 @@ const PlanetPage = () => {
           <PlanetDataCards>
             <div>
               <h2>Área de superfície</h2>
-              <p>{planets[indexPlanet].area} km</p>
+              <p>{planets[indexPlanet].surfaceArea} km</p>
             </div>
             <div>
               <h2>Distância do sol</h2>
@@ -133,7 +131,7 @@ const PlanetPage = () => {
             </div>
             <div>
               <h2>Duração do dia</h2>
-              <p>{planets[indexPlanet].durationDay} </p>
+              <p>{planets[indexPlanet].day} </p>
             </div>
             <div>
               <h2>Gravidade</h2>

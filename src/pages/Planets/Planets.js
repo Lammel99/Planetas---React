@@ -10,7 +10,7 @@ import Bg from "../../components/Bgs/Bg";
 import TablePlanets from "./TablePlanets";
 import ModalDelete from "./ModalDelete";
 import { AddCircleOutline } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   ContainerFilter,
   ContainerPlanets,
@@ -20,19 +20,34 @@ import {
 } from "./Style";
 import { getPlanets } from "../../services/get";
 import { deletePlanet } from "../../services/delete";
+import Loading from "../../components/Loading/Loading";
 
 const Planets = () => {
   const [planets, setPlanets] = React.useState("");
   const [display, setDisplay] = React.useState(false);
+  const [filteredPlanets, setFilteredPlanets] = React.useState("");
+  const [modalImg, setModalImg] = React.useState();
+  const [loading, setLoading] = React.useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getPlanets().then((response) => setPlanets(response.data));
+    getPlanets()
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.length == 0) {
+          alert(
+            "Ainda não há planetas cadastrados, por favor, cadastre um planeta"
+          );
+          navigate("/addPlaneta");
+        } else {
+          setPlanets(response.data);
+          setFilteredPlanets(response.data);
+          setLoading(false);
+        }
+      })
+      .catch(setLoading(true));
   }, [display]);
-
-  const [modalImg, setModalImg] = React.useState();
-  const [indexDelete, setIndexDelete] = React.useState();
-  const navigate = useNavigate();
-  
+  console.log(loading);
   const validationSchema = object({
     name: string(),
     filterParameter: string(),
@@ -53,7 +68,7 @@ const Planets = () => {
   });
   const filterParameters = [
     {
-      value: "area",
+      value: "surfaceArea",
       label: "Área de superfície",
     },
     {
@@ -61,7 +76,7 @@ const Planets = () => {
       label: "Distância do sol",
     },
     {
-      value: "durationDay",
+      value: "day",
       label: "Duração do dia",
     },
     {
@@ -74,18 +89,22 @@ const Planets = () => {
       planet.name.toUpperCase().includes(values.name.toUpperCase())
     );
 
-    console.log(NameFilteredPlanets.length);
-
     if (NameFilteredPlanets.length > 0 && values.filterParameter) {
-      setPlanets(
+      console.log(filteredPlanets);
+      setFilteredPlanets(
         NameFilteredPlanets.sort((a, b) => {
           return values.filterHigherLower == "maior"
             ? a[values.filterParameter] - b[values.filterParameter]
             : b[values.filterParameter] - a[values.filterParameter];
         })
       );
+    } else {
+      setFilteredPlanets(planets);
+      alert("Verifique se todos os filtros estão completos ou se você digitou o nome do planeta corretamente");
     }
   }
+
+ 
 
   return (
     <Bg>
@@ -151,8 +170,10 @@ const Planets = () => {
             </Link>
           </AddCard>
 
-          {planets.length > 0 ? (
-            planets.map((planet, i) => {
+          {loading ? (
+            <Loading />
+          ) : (
+            filteredPlanets.map((planet, i) => {
               return (
                 <PlanetCard key={planet.name} id={planet.name}>
                   <img src={require(`../../Assets/${planet.image}`)} />
@@ -164,7 +185,6 @@ const Planets = () => {
                         onClick={(event) => {
                           setModalImg(planet.image);
                           setDisplay(!display);
-                          setIndexDelete(i);
                         }}
                       />
                       <ArrowForwardIcon
@@ -187,13 +207,11 @@ const Planets = () => {
                 </PlanetCard>
               );
             })
-          ) : (
-            <p>Loading</p>
           )}
         </ContainerPlanets>
       </section>
 
-      {/* <TablePlanets planets={filteredPlanets} /> */}
+      {!loading && <TablePlanets planets={filteredPlanets} />}
     </Bg>
   );
 };

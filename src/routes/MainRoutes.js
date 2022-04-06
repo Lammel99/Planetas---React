@@ -14,6 +14,8 @@ import ContextEmail from "../context/ContextEmail";
 import Planets from "../pages/Planets/Planets";
 import PlanetPage from "../pages/PlanetPage/PlanetPage";
 import AddPlanet from "../pages/AddPlanet/AddPlanet";
+import CreateUser from '../pages/CreateUser/CreateUser'
+
 const MainRoutes = () => {
  
   const [userEmail, setEmail] = React.useState();
@@ -31,6 +33,7 @@ const MainRoutes = () => {
         <MasterPage>
           <Routes>
             <Route path="/" element={<Login sendData={setEmail} />} />
+            <Route path='/cadastro' element={<CreateUser/>}/>
             <Route
               path="/home"
               element={

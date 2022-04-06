@@ -2,7 +2,6 @@ import api from "./api";
 
 export const postPlanet = (
   name,
-  image,
   description,
   surfaceArea,
   day,
@@ -12,7 +11,7 @@ export const postPlanet = (
   try {
     return api.post("/planetas", {
       name: name,
-      image: image,
+      image: 'Netuno.png',
       description: description,
       surfaceArea: surfaceArea,
       day: day,

@@ -35,7 +35,6 @@ p{
 
 const ModalSucess = (props) => {
  
-  console.log(props.Sucess)
   return (
     <Modal style={{display: props.display ? 'flex' : 'none'}}>
       <div>

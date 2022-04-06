@@ -10,8 +10,7 @@ import Bg from "../../components/Bgs/Bg";
 import Header from "../../components/Header/Header";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, TextField } from "@mui/material";
-import { planets } from "../../data/data";
+import { Button, Input, TextField } from "@mui/material";
 import {
   SectionAddPlanet,
   PhotoAndDescription,
@@ -19,16 +18,17 @@ import {
   InformationsDiv,
   PlanetDataCards,
   FormAddPlanet,
-  Form,
+  GridForm,
   ModalChoosePhoto,
 } from "./Style";
 import ModalSucess from "../../helpers/ModalSucessFailure";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postPlanet } from "../../services/post";
 
 const AddPlanet = () => {
   const [sucess, setSucess] = React.useState(false);
   const [display, setDisplay] = React.useState(false);
+  const [baseImage, setBaseImage] = React.useState();
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
@@ -61,7 +61,6 @@ const AddPlanet = () => {
     onSubmit: (values) => {
       postPlanet(
         values.name,
-        'Netuno.png',
         values.description,
         values.area,
         values.duration,
@@ -77,20 +76,53 @@ const AddPlanet = () => {
     },
   });
 
+  const UploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   return (
     <Bg>
       <Header />
       <Backhome where="Adicionar Planeta" />
 
-      <SectionAddPlanet>
+      <SectionAddPlanet onSubmit={formik.handleSubmit}>
         <PhotoAndDescription>
           <AddPhotoDiv>
             <ArrowBackIosNew id="Arrow" />
-            <div>
-              <AddAPhoto />
-              Adicionar foto
-            </div>
-
+            {baseImage ? (
+              <div style={{ backgroundImage: `url(${baseImage})` }}></div>
+            ) : (
+              <div>
+                <Input
+                  inputProps={{ accepts: "image/*" }}
+                  type="file"
+                  onChange={(e) => UploadImage(e)}
+                  name="image"
+                  id="image"
+                  value={formik.values.image}
+                >
+                  {" "}
+                  <AddAPhoto />
+                </Input>
+              </div>
+            )}
             <ArrowForwardIos id="Arrow" />
           </AddPhotoDiv>
           <InformationsDiv>
@@ -135,7 +167,7 @@ const AddPlanet = () => {
         </PlanetDataCards>
         <FormAddPlanet>
           <h2>Informe os dados do planeta</h2>
-          <Form onSubmit={formik.handleSubmit}>
+          <GridForm>
             <TextField
               required
               fullWidth
@@ -204,15 +236,16 @@ const AddPlanet = () => {
               value={formik.values.duration}
               onChange={formik.handleChange}
             />
-            <Button
-              style={{ gridArea: "buttonBack" }}
-              id="BtnBack"
-              value="CANCELAR"
-              type="reset"
-              onlick={(e) => formik.resetForm()}
-            >
-              CANCELAR
-            </Button>
+            <Link to="/planetas">
+              <Button
+                style={{ gridArea: "buttonBack" }}
+                id="BtnBack"
+                value="CANCELAR"
+                type="reset"
+              >
+                CANCELAR
+              </Button>
+            </Link>
             <Button
               style={{ gridArea: "buttonSend" }}
               id="BtnSend"
@@ -221,7 +254,7 @@ const AddPlanet = () => {
             >
               ENVIAR
             </Button>
-          </Form>
+          </GridForm>
         </FormAddPlanet>
       </SectionAddPlanet>
       <ModalSucess

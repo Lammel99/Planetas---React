@@ -3,12 +3,14 @@ import styled from 'styled-components';
 
 
 export const MainContainer = styled.div`
-padding: 30px 0;
+padding-top: 50px;
 display: flex;
 flex-flow: column nowrap;
 align-items: center;
 color: white;
 text-align: center;
+justify-content: space-around;
+gap: 25px;
 h1 {
   font-size: 3rem;
   width: 50%;
@@ -28,19 +30,18 @@ p:nth-child(3) {
 `;
 
 export const ContainerIcons = styled.div`
-padding-top: 50px;
 display: flex;
 width: 75%;
 margin: auto;
 flex-flow: row wrap;
 justify-content: space-between;
+padding: 50px 0;
 
 div {
   display: flex;
   flex-flow: column nowrap;
   gap: 10px;
   align-items: center;
-  gap: 10px;
 }
 
 img {

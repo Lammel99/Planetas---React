@@ -34,13 +34,13 @@ const TablePlanets = (props) => {
                     {planet.name}
                   </TableCell>
                   <TableCell component="th" align="center">
-                    {planet.area} km²
+                    {planet.surfaceArea} km²
                   </TableCell>
                   <TableCell component="th" align="center">
                     {planet.sunDistance} km
                   </TableCell>
                   <TableCell component="th" align="center">
-                    {planet.durationDay}
+                    {planet.day}
                   </TableCell>
                   <TableCell component="th" align="center">
                     {planet.gravity}

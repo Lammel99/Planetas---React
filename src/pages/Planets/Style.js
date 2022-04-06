@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import BgContainer from "../../Assets/Starts.png";
 
+
+
+
+
 export const ContainerFilter = styled.div`
   border: solid thin grey;
   width: 85%;
@@ -59,6 +63,7 @@ export const ContainerPlanets = styled.div`
   gap: 100px;
   width: 85%;
   margin: auto;
+  
 `;
 
 export const AddCard = styled.div`

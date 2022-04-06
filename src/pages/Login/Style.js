@@ -14,7 +14,7 @@ export const LoginCenterContainer = styled.div`
   height: 50vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: white;
   box-sizing: border-box;
   background-color: #202024;
@@ -25,7 +25,7 @@ export const LoginCenterContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
-    height: 60%;
+    height: 70%;
     width: 80%;
   }
 

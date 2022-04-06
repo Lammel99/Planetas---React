@@ -3,11 +3,15 @@ import BgLoginAndHome from "../../components/Bgs/BgLoginAndHome";
 import LogoLogin from "../../Assets/LogoLogin.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate} from "react-router-dom";
-import { ContainerLogin, LoginCenterContainer, LoginBanner, HamburguerMenu} from './Style'
-import {loginData} from '../../data/data'
+import { Link, useNavigate } from "react-router-dom";
+import {
+  ContainerLogin,
+  LoginCenterContainer,
+  LoginBanner,
+  HamburguerMenu,
+} from "./Style";
 import ModalSucess from "../../helpers/ModalSucessFailure";
-
+import { authenticateUser } from "../../services/authenticateUser";
 
 const Login = (props) => {
   let navigate = useNavigate();
@@ -22,9 +26,7 @@ const Login = (props) => {
   });
 
   const [modalDisplay, setModalDisplay] = React.useState(false);
-  const [sucess, setSucess] = React.useState(false)
-
-
+  const [sucess, setSucess] = React.useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -34,30 +36,22 @@ const Login = (props) => {
     loginValidation: false,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-
-
-      if(loginData.some(log => log.email == values.email && log.password == values.password)){
-        setSucess(true);
-        setModalDisplay(true);     
-        props.sendData(values.email)
-        setTimeout(() => {
-          navigate('/home');}, 1500);
-
-      } else {
-       
-        setModalDisplay(true);
-        setTimeout(() => {
-          setModalDisplay(false);}, 1500);
-      }
+      authenticateUser(values.email, values.password)
+        .then(() => {
+          setSucess(true);
+          setModalDisplay(true);
+          setTimeout(() => {
+            navigate("/home");
+          }, 1500);
+          props.sendData(values.email);
+        })
+        .catch((error) => alert(error.response.data.message));
     },
   });
 
   return (
-
-    
     <BgLoginAndHome>
       <ContainerLogin>
-
         <LoginCenterContainer>
           <form onSubmit={formik.handleSubmit}>
             <input
@@ -80,16 +74,20 @@ const Login = (props) => {
             ></input>
             <a>Esqueci minha senha</a>
             <button type="submit">ENTRAR</button>
+            <Link to="/cadastro">Cadastro de novo usuário</Link>
           </form>
         </LoginCenterContainer>
         <LoginBanner>
           <img src={LogoLogin} />
           <h1>Faça seu Login na plataforma</h1>
         </LoginBanner>
-
       </ContainerLogin>
-      <ModalSucess display={modalDisplay} Sucess={sucess} messageError={'Dados de login incorretos'} messageSucess={'Login efetuado com sucesso!'}/>
-     
+      <ModalSucess
+        display={modalDisplay}
+        Sucess={sucess}
+        messageError={"Dados de login incorretos"}
+        messageSucess={"Login efetuado com sucesso!"}
+      />
     </BgLoginAndHome>
   );
 };
