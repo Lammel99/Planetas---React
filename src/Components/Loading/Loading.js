@@ -7,8 +7,7 @@ const Loading = () => {
     <LoadingContainer>
 
         <div>
-          
-            <PublicIcon/>
+        <PublicIcon/>
         </div>
 
     </LoadingContainer>

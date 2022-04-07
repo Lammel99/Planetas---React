@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React from "react";
 import Bg from "../../components/Bgs/Bg";
-import { postUser } from "../../services/postUser";
+import { postUser } from "../../services/UserServices/postUser";
 import { ContainerForm, Form, Title } from "./Styles";
 
 const CreateUser = () => {

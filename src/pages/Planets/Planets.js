@@ -18,9 +18,10 @@ import {
   PlanetCard,
   CardFooter,
 } from "./Style";
-import { getPlanets } from "../../services/get";
-import { deletePlanet } from "../../services/delete";
+import { getPlanets } from "../../services/PlanetsServices/get";
+import { deletePlanet } from "../../services/PlanetsServices/delete";
 import Loading from "../../components/Loading/Loading";
+import { useMessage } from "../../context/ContextMessage";
 
 const Planets = () => {
   const [planets, setPlanets] = React.useState("");
@@ -28,24 +29,25 @@ const Planets = () => {
   const [filteredPlanets, setFilteredPlanets] = React.useState("");
   const [modalImg, setModalImg] = React.useState();
   const [loading, setLoading] = React.useState(true);
+  const { setMessage } = useMessage();
   const navigate = useNavigate();
 
   useEffect(() => {
     getPlanets()
       .then((response) => {
         console.log(response.data);
-        if (response.data.length == 0) {
+        if (response.data.planets == 0) {
           alert(
             "Ainda não há planetas cadastrados, por favor, cadastre um planeta"
           );
           navigate("/addPlaneta");
         } else {
-          setPlanets(response.data);
-          setFilteredPlanets(response.data);
+          setPlanets(response.data.planets);
+          setFilteredPlanets(response.data.planets);
           setLoading(false);
         }
       })
-      .catch(setLoading(true));
+      .catch(console.log("erro"));
   }, [display]);
   console.log(loading);
   const validationSchema = object({
@@ -62,7 +64,6 @@ const Planets = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
       SortPlanets(values);
     },
   });
@@ -100,119 +101,120 @@ const Planets = () => {
       );
     } else {
       setFilteredPlanets(planets);
-      alert("Verifique se todos os filtros estão completos ou se você digitou o nome do planeta corretamente");
+      alert(
+        "Verifique se todos os filtros estão completos ou se você digitou o nome do planeta corretamente"
+      );
     }
   }
 
- 
-
   return (
-    <Bg>
-      <Header />
+    <section>
+      <Backhome where="Planetas" />
 
-      <section>
-        <Backhome where="Planetas" />
+      <ContainerFilter>
+        <h2>Filtrar planetas</h2>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            style={{ color: "white" }}
+            variant="outlined"
+            label="Pesquisar um planeta..."
+            name="name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
 
-        <ContainerFilter>
-          <h2>Filtrar planetas</h2>
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              style={{ color: "white" }}
-              variant="outlined"
-              label="Pesquisar um planeta..."
-              name="name"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-
-            <TextField
-              id="filterParameter"
-              select
-              name="filterParameter"
-              label="Filtrar por"
-              variant="outlined"
-              value={formik.values.filterParameter}
-              onChange={formik.handleChange}
-            >
-              {filterParameters.map((parameter) => (
-                <MenuItem key={parameter.value} value={parameter.value}>
-                  {parameter.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <TextField
-              id="filterHigherLower"
-              select
-              name="filterHigherLower"
-              label="Maior ou menor"
-              variant="outlined"
-              value={formik.values.filterHigherLower}
-              onChange={formik.handleChange}
-            >
-              <MenuItem key={"maior"} value={"maior"}>
-                Do menor para o maior
+          <TextField
+            id="filterParameter"
+            select
+            name="filterParameter"
+            label="Filtrar por"
+            variant="outlined"
+            value={formik.values.filterParameter}
+            onChange={formik.handleChange}
+          >
+            {filterParameters.map((parameter) => (
+              <MenuItem key={parameter.value} value={parameter.value}>
+                {parameter.label}
               </MenuItem>
-              <MenuItem key={"menor"} value={"menor"}>
-                Do maior para o menor
-              </MenuItem>
-            </TextField>
-            <Button type="submit">Enviar</Button>
-          </form>
-        </ContainerFilter>
+            ))}
+          </TextField>
 
-        <ContainerPlanets>
-          <AddCard>
-            <AddCircleOutline />
-            <Link to="/addPlaneta">
-              {" "}
-              <p>Adicionar</p>
-            </Link>
-          </AddCard>
+          <TextField
+            id="filterHigherLower"
+            select
+            name="filterHigherLower"
+            label="Maior ou menor"
+            variant="outlined"
+            value={formik.values.filterHigherLower}
+            onChange={formik.handleChange}
+          >
+            <MenuItem key={"maior"} value={"maior"}>
+              Do menor para o maior
+            </MenuItem>
+            <MenuItem key={"menor"} value={"menor"}>
+              Do maior para o menor
+            </MenuItem>
+          </TextField>
+          <Button type="submit">Enviar</Button>
+        </form>
+      </ContainerFilter>
 
-          {loading ? (
-            <Loading />
-          ) : (
-            filteredPlanets.map((planet, i) => {
-              return (
-                <PlanetCard key={planet.name} id={planet.name}>
-                  <img src={require(`../../Assets/${planet.image}`)} />
-                  <CardFooter id={planet.name}>
-                    <h3>{planet.name}</h3>
-                    <div>
-                      <DeleteIcon
-                        style={{ cursor: "pointer" }}
-                        onClick={(event) => {
-                          setModalImg(planet.image);
-                          setDisplay(!display);
-                        }}
-                      />
-                      <ArrowForwardIcon
-                        style={{ cursor: "pointer" }}
-                        onClick={(event) => {
-                          localStorage.setItem("planet", i);
-                          navigate("/planetaExplorar");
-                        }}
-                      />
-                    </div>
-                  </CardFooter>
-                  {display && (
-                    <ModalDelete
-                      display={display}
-                      setarDisplay={(event) => setDisplay(!display)}
-                      img={modalImg}
-                      deletePlanet={(event) => deletePlanet(planet.id)}
+      <ContainerPlanets>
+        <AddCard>
+          <AddCircleOutline />
+          <Link to="/addPlaneta">
+            {" "}
+            <p>Adicionar</p>
+          </Link>
+        </AddCard>
+
+        {loading ? (
+          <Loading />
+        ) : (
+          filteredPlanets.map((planet, i) => {
+            return (
+              <PlanetCard key={planet.name} id={planet.name}>
+                <img src={planet.image} />
+                <CardFooter id={planet.name}>
+                  <h3>{planet.name}</h3>
+                  <div>
+                    <DeleteIcon
+                      style={{ cursor: "pointer" }}
+                      onClick={(event) => {
+                        setModalImg(planet.image);
+                        setDisplay(!display);
+                      }}
                     />
-                  )}
-                </PlanetCard>
-              );
-            })
-          )}
-        </ContainerPlanets>
-      </section>
-
+                    <ArrowForwardIcon
+                      style={{ cursor: "pointer" }}
+                      onClick={(event) => {
+                        localStorage.setItem("planet", i);
+                        navigate("/planetaExplorar");
+                      }}
+                    />
+                  </div>
+                </CardFooter>
+                {display && (
+                  <ModalDelete
+                    display={display}
+                    setarDisplay={(event) => setDisplay(!display)}
+                    image={planet.image}
+                    deletePlanet={(event) => (
+                      deletePlanet(planet.id),
+                      setMessage({
+                        content: "Planeta deletado com sucesso!",
+                        display: true,
+                      })
+                    )}
+                  />
+                )}
+              </PlanetCard>
+            );
+          })
+        )}
+      </ContainerPlanets>
       {!loading && <TablePlanets planets={filteredPlanets} />}
-    </Bg>
+    </section>
   );
 };
 

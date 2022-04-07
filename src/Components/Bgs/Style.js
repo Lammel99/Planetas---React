@@ -7,6 +7,7 @@ export const BackGroundImg = styled.div`
 
   background-repeat: no-repeat;
   background-size: cover;
+  padding-bottom: 50px;
 `;
 
 export const BgPlanets = styled.div`

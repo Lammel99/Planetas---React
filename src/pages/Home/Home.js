@@ -7,14 +7,13 @@ import Vector3 from "../../Assets/Vector-2.svg";
 import Vector4 from "../../Assets/Vector-3.svg";
 import { Link } from "react-router-dom";
 import { MainContainer, ContainerIcons } from "./Style";
-import { postPlanet } from "../../services/post";
-import { deletePlanet } from "../../services/delete";
+import { postPlanet } from "../../services/PlanetsServices/post";
+import { deletePlanet } from "../../services/PlanetsServices/delete";
 
 const Home = () => {
   return (
     <section>
-      <BgLoginAndHome>
-        <Header />
+     
         <MainContainer>
           <h1>Sua jornada para desvendar o espaço começa aqui!</h1>
           <p>Planetas e galáxias inteiras aguardam para serem exploradas.</p>
@@ -40,7 +39,7 @@ const Home = () => {
             </div>
           </ContainerIcons>
         </MainContainer>
-      </BgLoginAndHome>
+    
     
     </section>
   );

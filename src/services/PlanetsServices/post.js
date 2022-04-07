@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "../api";
 
 export const postPlanet = (
   name,
@@ -6,18 +6,19 @@ export const postPlanet = (
   surfaceArea,
   day,
   sunDistance,
-  gravity
+  gravity,
+  image
 ) => {
   try {
     return api.post("/planetas", {
       name: name,
-      image: 'Netuno.png',
+      image: image,
       description: description,
       surfaceArea: surfaceArea,
       day: day,
       sunDistance: sunDistance,
       gravity: gravity,
-      card_image: "Netuno.png",
+      card_image: image,
       color: "red",
     });
   } catch (error) {

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 
 export const HeaderContainer = styled.div`
+
   height: 120px;
   display: flex;
   flex-flow: row nowrap;

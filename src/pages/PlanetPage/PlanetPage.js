@@ -20,10 +20,10 @@ import {
   PlanetDataCards,
   Form,
 } from "./Styles";
-import ModalSucess from "../../helpers/ModalSucessFailure";
+import ModalSucess from "../../components/ModalHelper/ModalHelper";
 import { useEffect } from "react";
-import { getPlanets } from "../../services/get";
-import { updatePlanet } from "../../services/update";
+import { getPlanets } from "../../services/PlanetsServices/get";
+import { updatePlanet } from "../../services/PlanetsServices/update";
 
 const PlanetPage = () => {
   const [editedPlanet, setEditedPlanet] = React.useState("");
@@ -90,7 +90,6 @@ const PlanetPage = () => {
 
   return (
     <Bg>
-      <Header />
       <Backhome where="Explorar Planeta" />
 
       {planets != "" && (

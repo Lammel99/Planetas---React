@@ -68,7 +68,7 @@ export const ContainerPlanets = styled.div`
 
 export const AddCard = styled.div`
   width: 100%;
-  height: 300px;
+  height: 280px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;
@@ -88,43 +88,29 @@ export const AddCard = styled.div`
 
 export const PlanetCard = styled.div`
   width: 100%;
-  height: 300px;
+  height: 280px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  box-sizing: border-box;
+  padding-top: 15px;
+
   overflow: hidden;
 
   img {
-    width: 200px;
-    height: 75%;
+    width: 90%;
+    
+    align-self: center;
   }
-  #Vênus {
-    background-color: #ffa1a1;
-  }
-  #Terra {
-    background-color: #72b7f4;
-  }
-  #Urano {
-    background-color: #32b9d9;
-  }
-  #Marte {
-    background-color: #fe7000;
-  }
-  #Jupiter {
-    background-color: #9d588e;
-  }
-  #Saturno {
-    background-color: #cf6f0b;
-  }
-  #Mercurio {
-    background-color: #6f83eb;
-  }
+  
 `;
 
 export const CardFooter = styled.div`
-  background-color: darkgreen;
+
+
+  background-color: #008b8b;
   height: 20%;
   display: flex;
   flex-flow: row nowrap;

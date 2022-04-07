@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useContext } from "react";
 
-export const EmailUser = React.createContext(); 
+export const UserContext = React.createContext({
+  user: null,
+  setUser: () => {},
+});
 
-const ContextEmail = (props) => {
+export const UserProvider = (props) => {
+  const [user, setUser] = React.useState({ email: null, authToken: false });
+
   return (
-    <EmailUser.Provider value={props.value}>{props.children}</EmailUser.Provider>
-  )
-}
+    <UserContext.Provider value={{ user, setUser }}>
+      {props.children}
+    </UserContext.Provider>
+  );
+};
 
-export default ContextEmail
+export function useUser() {
+  const context = useContext(UserContext);
+  const { user, setUser } = context;
+
+  return {
+    setUser,
+    user,
+  };
+}

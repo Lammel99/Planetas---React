@@ -10,65 +10,71 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import GlobalStyle from "../components/GlobalStyle/GlobalStyle";
 import MasterPage from "../components/MasterPage/MasterPage";
-import ContextEmail from "../context/ContextEmail";
+import { useUser } from "../context/ContextEmail";
 import Planets from "../pages/Planets/Planets";
 import PlanetPage from "../pages/PlanetPage/PlanetPage";
 import AddPlanet from "../pages/AddPlanet/AddPlanet";
-import CreateUser from '../pages/CreateUser/CreateUser'
+import CreateUser from "../pages/CreateUser/CreateUser";
+import Header from "../components/Header/Header";
+import { useMessage } from "../context/ContextMessage";
+import ModalHelper from "../components/ModalHelper/ModalHelper";
 
 const MainRoutes = () => {
- 
-  const [userEmail, setEmail] = React.useState();
+  const { user } = useUser();
+  const { message, setMessage } = useMessage();
 
+  console.log(user);
   const PrivateRoute = ({ children }) => {
-    return userEmail ? children : <Navigate to="/" />;
+    return user.authToken ? (
+      <Header>{children}</Header>
+    ) : (
+      (console.log(user.authToken + "Console de retorno"),
+      (<Navigate to="/" />))
+    );
   };
-
-
 
   return (
     <BrowserRouter>
-      <ContextEmail value={userEmail}>
-        <GlobalStyle />
-        <MasterPage>
-          <Routes>
-            <Route path="/" element={<Login sendData={setEmail} />} />
-            <Route path='/cadastro' element={<CreateUser/>}/>
-            <Route
-              path="/home"
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/planetas"
-              element={
-                <PrivateRoute>
-                  <Planets />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/planetaExplorar"
-              element={
-                <PrivateRoute>
-                  <PlanetPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/addPlaneta"
-              element={
-                <PrivateRoute>
-                  <AddPlanet />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </MasterPage>
-      </ContextEmail>
+      <GlobalStyle />
+
+      <ModalHelper/>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<CreateUser />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/planetas"
+            element={
+              <PrivateRoute>
+                <Planets />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/planetaExplorar"
+            element={
+              <PrivateRoute>
+                <PlanetPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/addPlaneta"
+            element={
+              <PrivateRoute>
+                <AddPlanet />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+
     </BrowserRouter>
   );
 };
