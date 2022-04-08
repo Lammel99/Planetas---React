@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
-import Header from "../../components/Header/Header";
 import { MenuItem, TextField, Button } from "@mui/material";
 import { object, string } from "yup";
 import { useFormik } from "formik";
 import Backhome from "../../components/Backhome/Backhome";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Bg from "../../components/Bgs/Bg";
 import TablePlanets from "./TablePlanets";
 import ModalDelete from "./ModalDelete";
 import { AddCircleOutline } from "@mui/icons-material";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ContainerFilter,
   ContainerPlanets,
@@ -104,7 +102,6 @@ const Planets = () => {
   return (
     <section>
       <Backhome where="Planetas" />
-
       <ContainerFilter>
         <h2>Filtrar planetas</h2>
         <form onSubmit={formik.handleSubmit}>
@@ -116,7 +113,6 @@ const Planets = () => {
             onChange={formik.handleChange}
             value={formik.values.name}
           />
-
           <TextField
             id="filterParameter"
             select
@@ -132,7 +128,6 @@ const Planets = () => {
               </MenuItem>
             ))}
           </TextField>
-
           <TextField
             id="filterHigherLower"
             select
@@ -161,7 +156,6 @@ const Planets = () => {
             <p>Adicionar</p>
           </Link>
         </AddCard>
-
         {filteredPlanets.length == 0 ? (
           <div></div>
         ) : loading ? (

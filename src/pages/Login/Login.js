@@ -2,31 +2,21 @@ import React from "react";
 import BgLoginAndHome from "../../components/Bgs/BgLoginAndHome";
 import LogoLogin from "../../Assets/LogoLogin.svg";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { object, string } from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ContainerLogin, LoginCenterContainer, LoginBanner } from "./Style";
-import ModalSucess from "../../components/ModalHelper/ModalHelper";
 import { authenticateUser } from "../../services/UserServices/authenticateUser";
 import { useUser } from "../../context/ContextEmail";
 import { useMessage } from "../../context/ContextMessage";
 
-const Login = (props) => {
-  let navigate = useNavigate();
-  const validationSchema = Yup.object({
-    email: Yup.string("Insira seu Email")
-      .email("Email inválido")
-      .required("Obrigatório"),
-    password: Yup.string("Insira sua senha")
-      .min(8, "No minímo 8 caracteres")
-      .required("Obrigatório"),
+const Login = () => {
+  const navigate = useNavigate();
+  const validationSchema = object({
+    email: string().email("Email inválido").required("Obrigatório"),
+    password: string().min(8, "No minímo 8 caracteres").required("Obrigatório"),
   });
-
-  const [modalDisplay, setModalDisplay] = React.useState(false);
-  const [sucess, setSucess] = React.useState(false);
-
   const { setUser } = useUser();
   const { setMessage } = useMessage();
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -36,26 +26,22 @@ const Login = (props) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       authenticateUser(values.email, values.password)
-        .then((response) => {
-          if (response.data.token) {
-            setUser({ email: values.email, authToken: true });
-            setMessage({
+        .then(
+          (response) => (
+            setUser({ email: values.email, authToken: response.data.token }),
+            (setMessage({
               content: "Login efetuado com sucesso!",
               display: true,
-            });
+            }),
             setTimeout(() => {
               navigate("/home");
-            }, 2000);
-          } else {
-            setMessage({
-              content: "Os dados de login estão incorretos, tente novamente",
-              display: true,
-            });
-          }
-        })
-        .catch(() =>
+            }, 2000))
+          )
+        )
+        .catch((error) =>
           setMessage({
-            content: "Os dados de login estão incorretos, tente novamente",
+            content:
+              "Houve um erro ao tentar o login, tente novamente mais tarde",
             display: true,
           })
         );

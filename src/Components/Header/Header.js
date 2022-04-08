@@ -3,13 +3,13 @@ import React, { useContext } from "react";
 import logo from "../../Assets/LogoLogin.svg";
 import arrow from "../../Assets/Arrow.svg";
 import person from "../../Assets/person.svg";
-import { EmailUser, useUser } from "../../context/ContextEmail";
+import { useUser } from "../../context/ContextEmail";
 import { Link } from "react-router-dom";
 import { HeaderContainer, UserInfo, HamburguerMenu } from "./Style";
 import { BackGroundImg } from "../Bgs/Style";
 
 const Header = (props) => {
-  const { user } = useUser();
+  const { setUser, user } = useUser();
 
   const [displayModal, setDisplayModal] = React.useState(false);
 
@@ -35,7 +35,9 @@ const Header = (props) => {
             Minha conta
           </a>
 
-          <Link to="/">Sair</Link>
+          <Link to="/" onClick={() => setUser({ authToken: "" })}>
+            Sair
+          </Link>
         </HamburguerMenu>
       </HeaderContainer>
       {props.children}

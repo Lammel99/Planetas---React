@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import BgContainer from "../../Assets/Starts.png";
 
-
-
-
-
 export const ContainerFilter = styled.div`
   border: solid thin grey;
   width: 85%;
@@ -63,7 +59,6 @@ export const ContainerPlanets = styled.div`
   gap: 100px;
   width: 85%;
   margin: auto;
-  
 `;
 
 export const AddCard = styled.div`
@@ -96,7 +91,6 @@ export const PlanetCard = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   padding-top: 15px;
-
   overflow: hidden;
 
   img {
@@ -104,12 +98,9 @@ export const PlanetCard = styled.div`
     height: 210px;
     align-self: center;
   }
-  
 `;
 
 export const CardFooter = styled.div`
-
-
   background-color: #008b8b;
   height: 20%;
   display: flex;

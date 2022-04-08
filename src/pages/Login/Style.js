@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 import Email from "../../Assets/Email.svg";
 import Password from "../../Assets/Password.svg";
 

@@ -25,7 +25,7 @@ const CreateUser = () => {
             setMessage({ content: "Conta criada com sucesso!", display: true })
           )
         )
-        .catch((error) =>
+        .catch(
           setMessage({
             content: "Não foi possível criar a conta, verifique os dados",
             display: true,

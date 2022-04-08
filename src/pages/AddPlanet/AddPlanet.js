@@ -6,8 +6,6 @@ import {
 } from "@mui/icons-material";
 import React from "react";
 import Backhome from "../../components/Backhome/Backhome";
-import Bg from "../../components/Bgs/Bg";
-import Header from "../../components/Header/Header";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Input, TextField } from "@mui/material";
@@ -19,7 +17,6 @@ import {
   PlanetDataCards,
   FormAddPlanet,
   GridForm,
-  ModalChoosePhoto,
 } from "./Style";
 import ModalSucess from "../../components/ModalHelper/ModalHelper";
 import { Link, useNavigate } from "react-router-dom";

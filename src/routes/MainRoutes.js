@@ -4,12 +4,10 @@ import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import GlobalStyle from "../components/GlobalStyle/GlobalStyle";
-import MasterPage from "../components/MasterPage/MasterPage";
 import { useUser } from "../context/ContextEmail";
 import Planets from "../pages/Planets/Planets";
 import PlanetPage from "../pages/PlanetPage/PlanetPage";
@@ -32,44 +30,43 @@ const MainRoutes = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <ModalHelper/>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/cadastro" element={<CreateUser />} />
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/planetas"
-            element={
-              <PrivateRoute>
-                <Planets />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/planetaExplorar"
-            element={
-              <PrivateRoute>
-                <PlanetPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/addPlaneta"
-            element={
-              <PrivateRoute>
-                <AddPlanet />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-
+      <ModalHelper />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/cadastro" element={<CreateUser />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/planetas"
+          element={
+            <PrivateRoute>
+              <Planets />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/planetaExplorar"
+          element={
+            <PrivateRoute>
+              <PlanetPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/addPlaneta"
+          element={
+            <PrivateRoute>
+              <AddPlanet />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 };

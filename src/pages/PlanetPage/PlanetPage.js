@@ -21,7 +21,6 @@ import {
   PlanetDataCards,
   Form,
 } from "./Styles";
-import ModalSucess from "../../components/ModalHelper/ModalHelper";
 import { useEffect } from "react";
 import { getPlanets } from "../../services/PlanetsServices/get";
 import { updatePlanet } from "../../services/PlanetsServices/update";
@@ -29,8 +28,7 @@ import { useMessage } from "../../context/ContextMessage";
 
 const PlanetPage = () => {
   const [planets, setPlanets] = React.useState("");
-  const [sucess, setSucess] = React.useState(false);
-  const [display, setDisplay] = React.useState(false);
+
   const navigate = useNavigate();
   const index = localStorage.getItem("index");
   const [indexPlanet, setIndexPlanet] = React.useState(index);
@@ -72,12 +70,29 @@ const PlanetPage = () => {
         values.gravity,
         values.description,
         values.image
-      );
-      setDisplay(true);
-      setSucess(true);
-      setTimeout(() => {
-        navigate("/planetas");
-      }, 1500);
+      )
+        .then(
+          setMessage({
+            content: "Planeta modificado com sucesso!",
+            display: true,
+          }),
+
+          setTimeout(() => {
+            navigate("/planetas");
+          }, 2000)
+        )
+        .catch(
+          (error) => (
+            console.log(error.data),
+            setMessage({
+              content: "Ocorreu um erro, o planeta não pôde ser modificado",
+              display: true,
+            }),
+            setTimeout(() => {
+              navigate("/planetas");
+            }, 2000)
+          )
+        );
     },
   });
 
@@ -104,32 +119,25 @@ const PlanetPage = () => {
 
   return (
     <section>
-      
-
       {planets != "" && (
-      
         <SectionPlanet onSubmit={formik.handleSubmit}>
-            <Backhome where="Explorar Planeta" />
+          <Backhome where="Explorar Planeta" />
           <PhotoAndDescription>
             <PhotoDiv>
               <ArrowBackIosNew id="Arrow" />
 
-  
-         
-                <img src={planets[indexPlanet].image}></img>
-                  
-                  <Input
-                    inputProps={{ accepts: "image/*" }}
-                    type="file"
-                    onChange={(e) => UploadImage(e)}
-                    name="image"
-                    id="image"
-                  >
-                    <AddAPhoto />
-                  </Input>
-              
-              
-              
+              <img src={planets[indexPlanet].image}></img>
+
+              <Input
+                inputProps={{ accepts: "image/*" }}
+                type="file"
+                onChange={(e) => UploadImage(e)}
+                name="image"
+                id="image"
+              >
+                <AddAPhoto />
+              </Input>
+
               <ArrowForwardIos
                 id="Arrow"
                 onClick={(event) => {
@@ -257,11 +265,6 @@ const PlanetPage = () => {
           </FormAddPlanet>
         </SectionPlanet>
       )}
-      <ModalSucess
-        Sucess={sucess}
-        display={display}
-        messageSucess={"Planeta modificado com sucesso"}
-      />
     </section>
   );
 };

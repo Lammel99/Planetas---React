@@ -6,7 +6,7 @@ export const UserContext = React.createContext({
 });
 
 export const UserProvider = (props) => {
-  const [user, setUser] = React.useState({ email: null, authToken: false });
+  const [user, setUser] = React.useState({ email: null, authToken: "" });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

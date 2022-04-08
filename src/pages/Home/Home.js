@@ -13,34 +13,31 @@ import { deletePlanet } from "../../services/PlanetsServices/delete";
 const Home = () => {
   return (
     <section>
-     
-        <MainContainer>
-          <h1>Sua jornada para desvendar o espaço começa aqui!</h1>
-          <p>Planetas e galáxias inteiras aguardam para serem exploradas.</p>
-          <p>O que vamos explorar hoje?</p>
-          <ContainerIcons>
-            <Link to="/planetas">
-              <div>
-                <img src={Vector} />
-                Planetas
-              </div>
-            </Link>
+      <MainContainer>
+        <h1>Sua jornada para desvendar o espaço começa aqui!</h1>
+        <p>Planetas e galáxias inteiras aguardam para serem exploradas.</p>
+        <p>O que vamos explorar hoje?</p>
+        <ContainerIcons>
+          <Link to="/planetas">
             <div>
-              <img src={Vector2} />
-              Asteroides
+              <img src={Vector} />
+              Planetas
             </div>
-            <div>
-              <img src={Vector3} />
-              Estrelas
-            </div>
-            <div>
-              <img src={Vector4} />
-              Galáxias
-            </div>
-          </ContainerIcons>
-        </MainContainer>
-    
-    
+          </Link>
+          <div>
+            <img src={Vector2} />
+            Asteroides
+          </div>
+          <div>
+            <img src={Vector3} />
+            Estrelas
+          </div>
+          <div>
+            <img src={Vector4} />
+            Galáxias
+          </div>
+        </ContainerIcons>
+      </MainContainer>
     </section>
   );
 };
