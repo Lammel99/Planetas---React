@@ -64,11 +64,11 @@ const PlanetPage = () => {
       updatePlanet(
         planets[indexPlanet].id,
         values.name,
+        values.description,
         values.area,
         values.durationDay,
         values.sunDistance,
         values.gravity,
-        values.description,
         values.image
       )
         .then(

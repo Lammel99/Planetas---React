@@ -34,16 +34,22 @@ const TablePlanets = (props) => {
                     {planet.name}
                   </TableCell>
                   <TableCell component="th" align="center">
-                    {planet.surfaceArea} km²
+                    {planet.surfaceArea
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                    km²
                   </TableCell>
                   <TableCell component="th" align="center">
-                    {planet.sunDistance} km
+                    {planet.sunDistance
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                    km
                   </TableCell>
                   <TableCell component="th" align="center">
                     {planet.day}
                   </TableCell>
                   <TableCell component="th" align="center">
-                    {planet.gravity}
+                    {(planet.gravity / 3.6).toFixed(2)} m/s²
                   </TableCell>
                 </TableRow>
               );
