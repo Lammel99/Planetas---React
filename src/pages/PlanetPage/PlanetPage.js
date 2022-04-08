@@ -2,13 +2,14 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import Backhome from "../../components/Backhome/Backhome";
 import {
+  AddAPhoto,
   ArrowBackIosNew,
   ArrowForwardIos,
   Minimize,
 } from "@mui/icons-material";
 import Bg from "../../components/Bgs/Bg";
 import { useFormik } from "formik";
-import { Button, TextField } from "@mui/material";
+import { Alert, Button, Input, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
   SectionPlanet,
@@ -24,53 +25,44 @@ import ModalSucess from "../../components/ModalHelper/ModalHelper";
 import { useEffect } from "react";
 import { getPlanets } from "../../services/PlanetsServices/get";
 import { updatePlanet } from "../../services/PlanetsServices/update";
+import { useMessage } from "../../context/ContextMessage";
 
 const PlanetPage = () => {
-  const [editedPlanet, setEditedPlanet] = React.useState("");
-
   const [planets, setPlanets] = React.useState("");
-
   const [sucess, setSucess] = React.useState(false);
   const [display, setDisplay] = React.useState(false);
   const navigate = useNavigate();
-  const index = localStorage.getItem("planet");
+  const index = localStorage.getItem("index");
   const [indexPlanet, setIndexPlanet] = React.useState(index);
+  const { setMessage } = useMessage();
+  const [baseImage, setBaseImage] = React.useState();
 
   useEffect(() => {
-    getPlanets().then((response) => setPlanets(response.data));
-    planets != "" &&
-      setEditedPlanet({
-        name: planets[indexPlanet].name,
-        image: "Marte.png",
-        area: planets[indexPlanet].surfaceaArea,
-        sunDistance: planets[indexPlanet].sunDistance,
-        durationDay: planets[indexPlanet].day,
-        gravity: planets[indexPlanet].gravity,
-        description: planets[indexPlanet].description,
-      });
-  }, [index]);
+    getPlanets()
+      .then((response) => {
+        setPlanets(response.data.planets);
+      })
+      .catch((err) =>
+        setMessage({
+          content: "Não é possívela apresentar o planeta",
+          display: true,
+        })
+      );
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues:
-      planets == ""
-        ? {
-            name: "",
-            area: "",
-            sunDistance: "",
-            durationDay: "",
-            gravity: "",
-            description: "",
-          }
-        : {
-            name: planets[indexPlanet].name,
-            area: planets[indexPlanet].surfaceArea,
-            sunDistance: planets[indexPlanet].sunDistance,
-            durationDay: planets[indexPlanet].day,
-            gravity: planets[indexPlanet].gravity,
-            description: planets[indexPlanet].description,
-          },
+    initialValues: planets && {
+      name: planets[indexPlanet].name,
+      area: planets[indexPlanet].surfaceArea,
+      sunDistance: planets[indexPlanet].sunDistance,
+      durationDay: planets[indexPlanet].day,
+      gravity: planets[indexPlanet].gravity,
+      description: planets[indexPlanet].description,
+      image: planets[indexPlanet].description,
+    },
     onSubmit: (values) => {
+      values.image = baseImage;
       updatePlanet(
         planets[indexPlanet].id,
         values.name,
@@ -78,7 +70,8 @@ const PlanetPage = () => {
         values.durationDay,
         values.sunDistance,
         values.gravity,
-        values.description
+        values.description,
+        values.image
       );
       setDisplay(true);
       setSucess(true);
@@ -88,20 +81,55 @@ const PlanetPage = () => {
     },
   });
 
+  const UploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   return (
-    <Bg>
-      <Backhome where="Explorar Planeta" />
+    <section>
+      
 
       {planets != "" && (
-        <SectionPlanet>
+      
+        <SectionPlanet onSubmit={formik.handleSubmit}>
+            <Backhome where="Explorar Planeta" />
           <PhotoAndDescription>
             <PhotoDiv>
               <ArrowBackIosNew id="Arrow" />
 
-              <img
-                src={require(`../../Assets/PlanetsFull/${planets[indexPlanet].image}`)}
-              />
-
+  
+         
+                <img src={planets[indexPlanet].image}></img>
+                  
+                  <Input
+                    inputProps={{ accepts: "image/*" }}
+                    type="file"
+                    onChange={(e) => UploadImage(e)}
+                    name="image"
+                    id="image"
+                  >
+                    <AddAPhoto />
+                  </Input>
+              
+              
+              
               <ArrowForwardIos
                 id="Arrow"
                 onClick={(event) => {
@@ -139,7 +167,7 @@ const PlanetPage = () => {
           </PlanetDataCards>
           <FormAddPlanet>
             <h2>Informe os dados do planeta</h2>
-            <Form onSubmit={formik.handleSubmit}>
+            <Form>
               <TextField
                 required
                 fullWidth
@@ -234,7 +262,7 @@ const PlanetPage = () => {
         display={display}
         messageSucess={"Planeta modificado com sucesso"}
       />
-    </Bg>
+    </section>
   );
 };
 

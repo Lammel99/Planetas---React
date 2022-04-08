@@ -2,7 +2,8 @@
 import styled from 'styled-components'
 
 
-export const SectionPlanet = styled.section`
+
+export const SectionPlanet = styled.form`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -13,7 +14,8 @@ export const PhotoAndDescription = styled.div`
   width: 95%;
   display: flex;
   flex-flow: row wrap;
-  gap: 100px;
+  gap:50px;
+
 `;
 
 export const PhotoDiv = styled.div`
@@ -21,21 +23,18 @@ export const PhotoDiv = styled.div`
   flex-flow: row nowrap;
   align-items: center;
   gap: 35px;
-  width: 40%;
+  width: 750px;
 
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #cdcdcd;
-    font-size: 2rem;
-    gap: 15px;
+  div{
+    width: 100px;
   }
+
 
   img {
-    width: 420px;
-    height: 420px;
+    width: 70%;
   }
+
+
   svg {
     font-size: 3rem;
     color: white;
@@ -53,12 +52,12 @@ export const InformationsDiv = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  width: 50%;
+  width: 500px;
 
   svg {
     color: #ffffff;
     font-size: 2rem;
-    padding-bottom: 0%.8;
+    padding-bottom: 0.8;
 
     opacity: 1;
   }
@@ -120,11 +119,6 @@ export const FormAddPlanet = styled.div`
     font-size: 1.5rem;
   }
 
-  div {
-    background-color: #2a2a2a;
-    border-radius: 5px;
-    color: white;
-  }
 
   #BtnBack {
     background-color: transparent;
@@ -143,7 +137,7 @@ export const FormAddPlanet = styled.div`
   }
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   display: grid;
   grid-template:
     "name name name description description description" 1fr
@@ -152,4 +146,11 @@ export const Form = styled.form`
     ". . . . buttonBack buttonSend" 1fr
     / 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 30px;
+
+  
+  div {
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    color: white;
+  }
 `;

@@ -131,6 +131,7 @@ const AddPlanet = () => {
           ) : (
             <div>
               <Input
+                required
                 inputProps={{ accepts: "image/*" }}
                 type="file"
                 onChange={(e) => UploadImage(e)}

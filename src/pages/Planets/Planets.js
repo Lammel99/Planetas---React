@@ -28,28 +28,21 @@ const Planets = () => {
   const [display, setDisplay] = React.useState(false);
   const [filteredPlanets, setFilteredPlanets] = React.useState("");
   const [modalImg, setModalImg] = React.useState();
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const { setMessage } = useMessage();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     getPlanets()
       .then((response) => {
-        console.log(response.data);
-        if (response.data.planets == 0) {
-          alert(
-            "Ainda não há planetas cadastrados, por favor, cadastre um planeta"
-          );
-          navigate("/addPlaneta");
-        } else {
-          setPlanets(response.data.planets);
-          setFilteredPlanets(response.data.planets);
-          setLoading(false);
-        }
+        setPlanets(response.data.planets);
+        setFilteredPlanets(response.data.planets);
+        setLoading(false);
       })
-      .catch(console.log("erro"));
+      .catch((err) => console.log("deu erro" + err.data));
   }, [display]);
-  console.log(loading);
+
   const validationSchema = object({
     name: string(),
     filterParameter: string(),
@@ -101,9 +94,10 @@ const Planets = () => {
       );
     } else {
       setFilteredPlanets(planets);
-      alert(
-        "Verifique se todos os filtros estão completos ou se você digitou o nome do planeta corretamente"
-      );
+      setMessage({
+        content: "Nenhum planeta encontrado",
+        display: true,
+      });
     }
   }
 
@@ -168,7 +162,9 @@ const Planets = () => {
           </Link>
         </AddCard>
 
-        {loading ? (
+        {filteredPlanets.length == 0 ? (
+          <div></div>
+        ) : loading ? (
           <Loading />
         ) : (
           filteredPlanets.map((planet, i) => {
@@ -188,7 +184,7 @@ const Planets = () => {
                     <ArrowForwardIcon
                       style={{ cursor: "pointer" }}
                       onClick={(event) => {
-                        localStorage.setItem("planet", i);
+                        localStorage.setItem("index", i);
                         navigate("/planetaExplorar");
                       }}
                     />
@@ -197,15 +193,27 @@ const Planets = () => {
                 {display && (
                   <ModalDelete
                     display={display}
-                    setarDisplay={(event) => setDisplay(!display)}
+                    setarDisplay={() => setDisplay(!display)}
                     image={planet.image}
-                    deletePlanet={(event) => (
-                      deletePlanet(planet.id),
-                      setMessage({
-                        content: "Planeta deletado com sucesso!",
-                        display: true,
-                      })
-                    )}
+                    deletePlanet={() =>
+                      deletePlanet(planet.id)
+                        .then(
+                          (response) => (
+                            console.log(response.data),
+                            setMessage({
+                              content: "Planeta deletado com sucesso!",
+                              display: true,
+                            })
+                          )
+                        )
+                        .catch(
+                          setMessage({
+                            content:
+                              "Ocorreu um erro, não foi possível deletar o planeta!",
+                            display: true,
+                          })
+                        )
+                    }
                   />
                 )}
               </PlanetCard>
@@ -213,7 +221,9 @@ const Planets = () => {
           })
         )}
       </ContainerPlanets>
-      {!loading && <TablePlanets planets={filteredPlanets} />}
+      {!loading && filteredPlanets && (
+        <TablePlanets planets={filteredPlanets} />
+      )}
     </section>
   );
 };

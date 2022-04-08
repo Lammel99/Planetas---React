@@ -68,7 +68,7 @@ export const ContainerPlanets = styled.div`
 
 export const AddCard = styled.div`
   width: 100%;
-  height: 280px;
+  height: 300px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;
@@ -88,7 +88,7 @@ export const AddCard = styled.div`
 
 export const PlanetCard = styled.div`
   width: 100%;
-  height: 280px;
+  height: 300px;
   background-color: #2a2a2a;
   border-radius: 5px;
   display: flex;
@@ -101,7 +101,7 @@ export const PlanetCard = styled.div`
 
   img {
     width: 90%;
-    
+    height: 210px;
     align-self: center;
   }
   

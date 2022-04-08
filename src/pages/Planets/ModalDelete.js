@@ -24,7 +24,10 @@ const ModalDelete = (props) => {
           <button id="btnBack" onClick={props.setarDisplay}>
             VOLTAR
           </button>
-          <div onClick={props.setarDisplay}>
+          <div
+            onClick={
+              props.setarDisplay}
+          >
             <button onClick={props.deletePlanet} id="btnDelete">
               DELETAR
             </button>

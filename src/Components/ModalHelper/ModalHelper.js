@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useMessage } from "../../context/ContextMessage";
 
 const Modal = styled.div`
-  z-index: 1;
+  z-index: 10000;
   left: 0;
   top: 0;
   width: 100vw;
@@ -18,7 +18,7 @@ const Modal = styled.div`
     background-color: white;
     width: 300px;
     height: 150px;
-    box-shadow: -2px 0px 10px 0px rgba(51,51,51,1);
+    box-shadow: -2px 0px 10px 0px rgba(51, 51, 51, 1);
     z-index: 2;
     display: flex;
     align-items: center;
@@ -28,6 +28,7 @@ const Modal = styled.div`
   }
 
   p {
+    z-index: 20000;
     font-size: 1.2rem;
     text-align: center;
   }

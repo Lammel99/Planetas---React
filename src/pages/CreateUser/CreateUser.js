@@ -1,10 +1,14 @@
 import { useFormik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Bg from "../../components/Bgs/Bg";
+import { useMessage } from "../../context/ContextMessage";
 import { postUser } from "../../services/UserServices/postUser";
 import { ContainerForm, Form, Title } from "./Styles";
 
 const CreateUser = () => {
+  const navigate = useNavigate();
+  const { setMessage } = useMessage();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -13,7 +17,20 @@ const CreateUser = () => {
     },
     loginValidation: false,
     onSubmit: (values) => {
-      postUser( values.username, values.email, values.password).then(response => console.log(response))
+      postUser(values.username, values.email, values.password)
+        .then(
+          (response) => (
+            console.log(response),
+            navigate("/"),
+            setMessage({ content: "Conta criada com sucesso!", display: true })
+          )
+        )
+        .catch((error) =>
+          setMessage({
+            content: "Não foi possível criar a conta, verifique os dados",
+            display: true,
+          })
+        );
     },
   });
 

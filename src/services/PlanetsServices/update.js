@@ -1,3 +1,4 @@
+import { Image } from "@mui/icons-material";
 import api from "../api";
 
 export const updatePlanet = (
@@ -7,18 +8,19 @@ export const updatePlanet = (
   surfaceArea,
   day,
   sunDistance,
-  gravity
+  gravity,
+  image
 ) => {
   try {
     return api.put(`/planetas/${id}`, {
       name: name,
-      image: "Netuno.png",
+      image: image,
       description: description,
       surfaceArea: surfaceArea,
       day: day,
       sunDistance: sunDistance,
       gravity: gravity,
-      card_image: "Netuno.png",
+      card_image: image,
       color: "red",
     });
   } catch (error) {

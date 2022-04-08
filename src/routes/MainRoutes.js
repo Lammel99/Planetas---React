@@ -16,14 +16,10 @@ import PlanetPage from "../pages/PlanetPage/PlanetPage";
 import AddPlanet from "../pages/AddPlanet/AddPlanet";
 import CreateUser from "../pages/CreateUser/CreateUser";
 import Header from "../components/Header/Header";
-import { useMessage } from "../context/ContextMessage";
 import ModalHelper from "../components/ModalHelper/ModalHelper";
 
 const MainRoutes = () => {
   const { user } = useUser();
-  const { message, setMessage } = useMessage();
-
-  console.log(user);
   const PrivateRoute = ({ children }) => {
     return user.authToken ? (
       <Header>{children}</Header>
@@ -36,7 +32,6 @@ const MainRoutes = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
-
       <ModalHelper/>
         <Routes>
           <Route path="/" element={<Login />} />
